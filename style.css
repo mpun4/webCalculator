@@ -1,0 +1,79 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    background-color: #d4e3a3;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 20px 50px;
+    max-width: 960px;
+}
+
+.answer {
+    background-color: #f1e7fb;
+    padding: 8px 100px;
+    margin: 8px;
+    font-size: 20px;
+}
+
+.operator {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    margin: 8px;
+}
+
+button {
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+}
+
+.operator button,.addOnNum {
+    background-color: #efedf0;
+    padding: 6px 12px;
+    font-size: 26px;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0 8px 15px;
+}
+
+.numbers {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 8px;
+    max-width: 220px; /*make bigger*/
+}
+
+.numbers button {
+    background-color: #d4c9d6;
+    min-width: 60px;
+}
+
+.numbers .addOnNum {
+    background-color: #efefef;
+}
+
+#equal {
+    background-color: #e7caed;
+    padding: 16px;
+    margin: 8px;
+}

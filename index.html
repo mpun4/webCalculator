@@ -2,21 +2,29 @@
 <html lang = "en">
     <head>
         <meta charset = "UTF-8">
+        <link rel = "stylesheet" href = "./style.css">
+        <script src = "./calc.js" defer></script>
         <title>Calculator</title>
     </head>
     <body>
-        <div class = "screen">
+        <div class = "calculator">
             <div class = "answer">
+                <p>Loading...</p>
             </div>
             <div class = "operator">
-            <button>+</button>
-            <button>-</button>
-            <button>*</button>
-            <button>/</button>
+                <button>+</button>
+                <button>-</button>
+                <button>x</button>
+                <button>/</button>
+                <button>AC</button>
             </div>
-            <div class = "number">
+            <div class = "bottom">
+                <div class = "numbers">
+                    <button class = "addOnNum">.</button>
+                    <button class = "addOnNum">(-)</button>
+                </div>
+                <button id = "equal">=</button>
             </div>
-            <button>=</button>
         </div>
     </body>
 </html>
