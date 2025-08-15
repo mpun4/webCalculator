@@ -1,30 +1,60 @@
-numbers = document.querySelector(".numbers");
-answer = document.querySelector(".answer p");
+let numbers = document.querySelector(".numbers");
+let answer = document.querySelector(".answer p");
+let operators = Array.from(document.querySelectorAll(".operator button"));
+operators = operators.map((x) => {return x.textContent})
+
+let decimalPresent = false;
+let numFinish = true;
+let op = false;
 
 generateNumbers();
 buttons = document.querySelectorAll("button");
 
 Array.from(buttons).forEach((x) => x.addEventListener("click",(e) => {
     let add = "";
-    if (answer.textContent == "reset")
+    add = readButton(e.target.textContent, decimalPresent, numFinish, op);
+
+    if ((add != "reset" && add != "") && answer.getAttribute("class") == "reset")
     {
-        answer.classList.toggle("reset");
+        answer.classList.remove("reset");
     }
-    if (e.target.textContent == "(-)")
-        add += "-";
-    else if (e.target.textContent == "AC")
+    console.log(add);
+    
+    if (add == ".")
+        {
+        decimalPresent = true;
+        numFinish = false;
+        }
+    else if (operators.includes(add) && add == e.target.textContent && numFinish)
     {
-        answer.textContent = "reset";
-        answer.classList.toggle("reset");
+        op = true;
+        numFinish = false;
+        decimalPresent = false;
     }
-    else if (e.target.textContent == "=")
-        add = eval(answer.textContent);
+    else if (add == "-" && e.target.textContent == "(-)")
+    {
+        op = false;
+        numFinish = false;
+    }
     else
-        add += e.target.textContent;
-    if ((answer.textContent == "reset" && answer.getAttribute("class") == "") || e.target.textContent == "=")
+    {
+        if (add != "")
+            numFinish = true;
+    }
+    
+    if ((answer.textContent == "reset" || add == "reset" || e.target.textContent == "=") && add != "")
+    {
         answer.textContent = add;
+        op = false;
+        numFinish = true;
+        if (add != ".")
+            decimalPresent = false;
+    }
     else
-        answer.textContent += add;
+    {
+        if (add != "")
+            answer.textContent += add;
+    }
 }));
 
 function generateNumbers()
@@ -39,6 +69,48 @@ function generateNumbers()
         else
             numbers.appendChild(num);
     }
+}
+
+function readButton(text, decimalPresent, numFinish, op) {
+    console.log(text);
+    if (text == "AC")
+    {
+        if (answer.getAttribute("class") != "reset")
+        {
+            answer.classList.toggle("reset");
+        }
+        return "reset";
+    }
+    else if (text == "(-)")
+    {
+        if ((answer.textContent == "reset" || op) && !decimalPresent)
+        {
+            return "-";
+        }
+    }
+    else if (operators.includes(text))
+    {
+        if (answer.textContent != "reset" && numFinish && !op)
+        {
+            return text;
+        }
+    }
+    else if (text == ".")
+    {
+        if (!decimalPresent)
+        {
+            return ".";
+        }
+    }
+    else if (text == "=")
+    {
+        return eval(answer.textContent);
+    }
+    else
+    {
+        return text;
+    }
+    return "";
 }
 
 function add(a,b)
