@@ -38,7 +38,7 @@ Array.from(buttons).forEach((x) => x.addEventListener("click",(e) => {
     else if (e.target.textContent == "Del")
     {
         let remove = "";
-        if (answer.textContent.length > 1 && answer.textContent != "reset")
+        if (answer.textContent.length > 1 && answer.textContent != "reset" && answer.textContent != "ERROR")
         {
             remove = answer.textContent.slice(-1);
             answer.textContent = answer.textContent.substring(0,answer.textContent.length - 1);
@@ -106,7 +106,7 @@ Array.from(buttons).forEach((x) => x.addEventListener("click",(e) => {
     }
     else
     {
-        if (add != "")
+        if (add != "" && answer.textContent != "ERROR")
             answer.textContent += add;
     }
 }));
@@ -231,6 +231,8 @@ function eval(exp) {
             }
             else
                 nums.splice(0,2,divide(nums[1],nums[0]));
+            if (!Number.isFinite(nums[0]))
+                return "ERROR";
             op.splice(0,1);
             if (op[0] == "x" || op == "/")
                 multiDivideNum = true;
@@ -245,5 +247,5 @@ function eval(exp) {
         else
             nums.push(subtract(nums.pop(), nums.pop()));
     }
-    return nums;
+    return Math.round(Number(nums)*10000)/10000;
 }
