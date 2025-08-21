@@ -18,13 +18,12 @@ Array.from(buttons).forEach((x) => x.addEventListener("click",(e) => {
     {
         answer.classList.remove("reset");
     }
-    console.log(add);
     
     if (add == ".")
-        {
+    {
         decimalPresent = true;
         numFinish = false;
-        }
+    }
     else if (operators.includes(add) && add == e.target.textContent && numFinish)
     {
         op = true;
@@ -36,10 +35,59 @@ Array.from(buttons).forEach((x) => x.addEventListener("click",(e) => {
         op = false;
         numFinish = false;
     }
+    else if (e.target.textContent == "Del")
+    {
+        let remove = "";
+        if (answer.textContent.length > 1 && answer.textContent != "reset")
+        {
+            remove = answer.textContent.slice(-1);
+            answer.textContent = answer.textContent.substring(0,answer.textContent.length - 1);
+            console.log(remove);
+        }
+        else
+        {
+            answer.textContent = "reset";
+            if (answer.getAttribute("class") != "reset")
+                answer.classList.toggle("reset");
+        }
+        if (!Number.isInteger(Number(answer.textContent.slice(-1))) && answer.textContent != "reset")
+        {
+            {
+                if (answer.textContent.slice(-1) == ".")
+                {
+                    numFinish = false;
+                }
+                else if (operators.includes(answer.textContent.slice(-1)))
+                {
+                    if (operators.includes(answer.textContent.slice(-2,-1)))
+                        op = false;
+                    else
+                        op = true;
+                    numFinish = false;
+                    decimalPresent = false;
+                }
+            }
+        }
+        else
+        {
+            numFinish = true;
+            if (remove == ".")
+            {
+                decimalPresent = false;
+            }
+            else if (operators.includes(remove))
+            {
+                op = false;
+            }
+        }
+    }
     else
     {
         if (add != "")
+        {
             numFinish = true;
+            op = false;
+        }
     }
     
     if ((answer.textContent == "reset" || add == "reset" || e.target.textContent == "=") && add != "")
@@ -47,8 +95,14 @@ Array.from(buttons).forEach((x) => x.addEventListener("click",(e) => {
         answer.textContent = add;
         op = false;
         numFinish = true;
-        if (add != ".")
+        if (add == "reset" || (add.toString().length > 0 && Number.isInteger(Number(add))))
+        {
             decimalPresent = false;
+        }
+        else if (add.toString().length > 1)
+        {
+            decimalPresent = true;
+        }
     }
     else
     {
@@ -72,7 +126,6 @@ function generateNumbers()
 }
 
 function readButton(text, decimalPresent, numFinish, op) {
-    console.log(text);
     if (text == "AC")
     {
         if (answer.getAttribute("class") != "reset")
@@ -80,6 +133,10 @@ function readButton(text, decimalPresent, numFinish, op) {
             answer.classList.toggle("reset");
         }
         return "reset";
+    }
+    else if (text == "Del")
+    {
+        return "";
     }
     else if (text == "(-)")
     {
