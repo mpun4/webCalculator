@@ -87,3 +87,18 @@ button {
     padding: 16px;
     margin: 8px;
 }
+
+.style {
+    text-align: right;
+    margin: 0 10px 12px;
+    font-size: 18px;
+}
+
+select {
+    font-size: 18px;
+    color: #85586e;
+    padding: 4px 8px;
+    border: 2px solid #a7b1a1;
+    border-radius: 8px;
+    background-color: #efefef;
+}
