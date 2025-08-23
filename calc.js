@@ -150,6 +150,8 @@ function keyRead(e) {
         return "Del";
     else if (e.key == "Enter")
         return "=";
+    else if (e.key == "*")
+        return "x";
     return "";
 }
 
