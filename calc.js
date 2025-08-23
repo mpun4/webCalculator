@@ -111,6 +111,14 @@ Array.from(buttons).forEach((x) => x.addEventListener("click",(e) => {
     }
 }));
 
+window.addEventListener("keydown", (e) => {
+    let key = keyRead(e);
+    let keyEvent = new MouseEvent("click");
+    let elm = Array.from(buttons).find((x) => {return x.textContent == key});
+    if (key != "")
+        elm.dispatchEvent(keyEvent);
+});
+
 function generateNumbers()
 {
     decimal = document.querySelector(".numbers button");
@@ -123,6 +131,26 @@ function generateNumbers()
         else
             numbers.appendChild(num);
     }
+}
+
+function keyRead(e) {
+    if (Array.from(buttons).map((x) => {return x.textContent}).includes(e.key))
+        {
+            if (e.key == "-")
+            {
+                if (readButton("(-)",decimalPresent,numFinish,op) != "")
+                    return "(-)";
+                else
+                    return "-";
+            }
+            else
+                return e.key;
+        }
+    else if (e.key == "Backspace")
+        return "Del";
+    else if (e.key == "Enter")
+        return "=";
+    return "";
 }
 
 function readButton(text, decimalPresent, numFinish, op) {
